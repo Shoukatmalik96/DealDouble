@@ -5,7 +5,7 @@
 }
 
 <div id="listingArea">
-    <table>
+    <table class="table table-hover">
         <tr>
             <th>Title</th>
             <th>Description</th>
@@ -23,14 +23,14 @@
                 <td>@auction.ActualAmount</td>
                 <td>@auction.StartingDate</td>
                 <td>@auction.EndingDate</td>
-                <td><Button class="editButton" data-id="@auction.ID" type="button">Edit</Button></td>
-                <td><Button class="deleteButton" data-id="@auction.ID" type="button">Delete</Button></td>
+                <td><Button class="editButton btn btn-primary" data-id="@auction.ID" type="button">Edit</Button></td>
+                <td><Button class="deleteButton btn btn-danger" data-id="@auction.ID" type="button">Delete</Button></td>
             </tr>
         }
 
     </table>
 
-    <button id="newButton" type="button">AddNewRecord</button>
+    <button id="newButton" class="btn btn-success" type="button">AddNewRecord</button>
     <div id="contentArea"></div>
 
     <script>
