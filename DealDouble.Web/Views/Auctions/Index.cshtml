@@ -1,0 +1,78 @@
+﻿
+@model List<DealDouble.Entities.Auctions>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="listingArea">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>ActualAmount</th>
+            <th>StartingDate</th>
+            <th>EndingDate</th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var auction in Model)
+        {
+            <tr>
+                <td>@auction.Title</td>
+                <td>@auction.Description</td>
+                <td>@auction.ActualAmount</td>
+                <td>@auction.StartingDate</td>
+                <td>@auction.EndingDate</td>
+                <td><Button class="editButton" data-id="@auction.ID" type="button">Edit</Button></td>
+                <td><Button class="deleteButton" data-id="@auction.ID" type="button">Delete</Button></td>
+            </tr>
+        }
+
+    </table>
+
+    <button id="newButton" type="button">AddNewRecord</button>
+    <div id="contentArea"></div>
+
+    <script>
+    $("#newButton").click(function () {
+
+        $.ajax({
+            url: "@Url.Action("Create","Auctions")"
+        }).done(function (response) {
+            $("#contentArea").html(response)
+        })
+    });
+
+        $(".editButton").click(function () {
+           
+            $.ajax({
+                url: "@Url.Action("Edit","Auctions")",
+                type: "get",
+                data: {
+                    ID: $(this).attr("data-id")
+                }
+            }).done(function (response) {
+                $("#contentArea").html(response)
+            });
+        });
+
+         $(".deleteButton").click(function () {
+           
+             var result = confirm("Are you sure you want to delte this record !");
+             if (result == true) {
+
+                 $.ajax({
+                     url: "/Auctions/Delete/",
+                     type: "POST",
+                     data: {
+                            ID: $(this).attr("data-id")
+                     }
+                 }).done(function (response) {
+
+                     $("#listingArea").html(response);
+                 });
+
+             }
+        });
+    </script>
+</div>
