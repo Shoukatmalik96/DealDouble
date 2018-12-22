@@ -3,33 +3,46 @@
     ViewBag.Title = "Edit";
 }
 
+<!--Edit Modal --->
 
-<form id="editForm" action="/Auctions/Edit" method="post">
-    <input type="hidden" name="ID" value="@Model.ID" />
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Edit Auction</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 
-    <div class="form-group">
-        <label>Title</label>
-        <input class="form-control" name="Title" value="@Model.Title">
+<form id="editForm" action="/Auctions/Edit/" method="post">
+    <div class="modal-body">
+        <input type="hidden" name="ID" value="@Model.ID" />
+
+        <div class="form-group">
+            <label>Title</label>
+            <input class="form-control" name="Title" value="@Model.Title">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input class="form-control" name="Description" value="@Model.Description">
+        </div>
+        <div class="form-group">
+            <label>Actual Amount</label>
+            <input class="form-control" name="ActualAmount" value="@Model.ActualAmount">
+        </div>
+        <div class="form-group">
+            <label>StatringDate</label>
+            <input class="form-control" name="StartingDate" value="@Model.StartingDate">
+        </div>
+        <div class="form-group">
+            <label>EndingDate</label>
+            <input class="form-control" name="EndingDate" value="@Model.EndingDate">
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="saveButton" type="button" class="btn btn-lg bg-success">Save Changes</button>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Description</label>
-        <input class="form-control" name="Description" value="@Model.Description">
-    </div>
-    <div class="form-group">
-        <label>Actual Amount</label>
-        <input class="form-control" name="ActualAmount" value="@Model.ActualAmount">
-    </div>
-    <div class="form-group">
-        <label>StatringDate</label>
-        <input class="form-control" name="StartingDate" value="@Model.StartingDate">
-    </div>
-    <div class="form-group">
-        <label>EndingDate</label>
-        <input class="form-control" name="EndingDate" value="@Model.EndingDate">
-    </div>
-    <button id="saveButton" type="button" class="btn btn-lg bg-success">Submit</button>
 </form>
-
 <script>
     $("#saveButton").click(function () {
 
@@ -38,6 +51,7 @@
             type: "post",
             data: $("#editForm").serialize()
         }).done(function (response) {
+            $("#formModal").modal("toggle")
             $("#listingArea").html(response)
         });
     });

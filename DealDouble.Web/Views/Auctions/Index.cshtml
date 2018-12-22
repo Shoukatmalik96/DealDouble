@@ -23,15 +23,14 @@
                 <td>@auction.ActualAmount</td>
                 <td>@auction.StartingDate</td>
                 <td>@auction.EndingDate</td>
-                <td><Button class="editButton btn btn-primary" data-id="@auction.ID" type="button">Edit</Button></td>
+                <td><Button class="editButton btn btn-primary" data-id="@auction.ID" type="button" data-toggle="modal" data-target="#formModal">Edit</Button></td>
                 <td><Button class="deleteButton btn btn-danger" data-id="@auction.ID" type="button">Delete</Button></td>
             </tr>
         }
 
     </table>
-
-    <button id="newButton" class="btn btn-success" type="button">AddNewRecord</button>
-    <div id="contentArea"></div>
+    <!-- Modal Trigger Button -->
+    <button id="newButton" class="btn btn-success" type="button" data-toggle="modal" data-target="#formModal">AddNewRecord</button>
 
     <script>
     $("#newButton").click(function () {
@@ -39,12 +38,13 @@
         $.ajax({
             url: "@Url.Action("Create","Auctions")"
         }).done(function (response) {
+            $("#formModal").modal("toggle")
             $("#contentArea").html(response)
         })
     });
 
         $(".editButton").click(function () {
-           
+
             $.ajax({
                 url: "@Url.Action("Edit","Auctions")",
                 type: "get",
@@ -52,12 +52,13 @@
                     ID: $(this).attr("data-id")
                 }
             }).done(function (response) {
+                
                 $("#contentArea").html(response)
             });
         });
 
          $(".deleteButton").click(function () {
-           
+
              var result = confirm("Are you sure you want to delte this record !");
              if (result == true) {
 
@@ -75,4 +76,13 @@
              }
         });
     </script>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="contentArea">
+
+        </div>
+    </div>
 </div>
