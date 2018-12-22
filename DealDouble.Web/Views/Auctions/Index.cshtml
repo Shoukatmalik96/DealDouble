@@ -4,52 +4,32 @@
     ViewBag.Title = "Index";
 }
 
-<div id="listingArea">
-    @{Html.RenderAction("Listing");}
 
+    <div id="listingArea">
+        @{Html.RenderAction("Listing");}
+    </div>
+
+    <!-- Modal Trigger Button -->
+    <button id="createButton" class="btn btn-success" type="button">AddNewRecord</button>
+    <!-- Modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="contentArea">
+
+            </div>
+        </div>
+    </div>
     <script>
 
-        $(".editButton").click(function () {
+        $("#createButton").click(function () {
 
             $.ajax({
-                url: "@Url.Action("Edit","Auctions")",
-                type: "get",
-                data: {
-                    ID: $(this).attr("data-id")
-                }
+                url: "@Url.Action("Create","Auctions")"
             }).done(function (response) {
-
+                $("#formModal").modal("toggle")
                 $("#contentArea").html(response)
-            });
-        });
 
-         $(".deleteButton").click(function () {
-
-             var result = confirm("Are you sure you want to delte this record !");
-             if (result == true) {
-
-                 $.ajax({
-                     url: "/Auctions/Delete/",
-                     type: "POST",
-                     data: {
-                            ID: $(this).attr("data-id")
-                     }
-                 }).done(function (response) {
-
-                     $("#listingArea").html(response);
-                 });
-
-             }
+            })
         });
     </script>
 
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="contentArea">
-
-        </div>
-    </div>
-</div>

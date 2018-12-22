@@ -39,7 +39,7 @@ namespace DealDouble.Web.Controllers
         public ActionResult Create(Auctions auctions)
         {
             AuctionsService.SaveAuction(auctions);
-            return RedirectToAction("Index");
+            return RedirectToAction("Listing");
         }
         [HttpGet]
         public ActionResult Edit(int ID)
@@ -51,7 +51,7 @@ namespace DealDouble.Web.Controllers
         public ActionResult Edit(Auctions auctions)
         {
             AuctionsService.UpdateAuction(auctions);
-            return RedirectToAction("Index");
+            return RedirectToAction("Listing");
         }
         [HttpGet]
         public ActionResult Delete(int ID)
@@ -63,7 +63,7 @@ namespace DealDouble.Web.Controllers
         public ActionResult Delete(Auctions auctions)
         {
             AuctionsService.DeleteAuction(auctions);
-            return RedirectToAction("Index");
+            return RedirectToAction("Listing");
         }
 
     }

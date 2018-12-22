@@ -3,7 +3,6 @@
     ViewBag.Title = "Listing";
 }
 
-<div id="listingArea">
     <table class="table table-hover">
         <tr>
             <th>Title</th>
@@ -28,21 +27,41 @@
         }
 
     </table>
-    <!-- Modal Trigger Button -->
-    <button id="newButton" class="btn btn-success" type="button" data-toggle="modal" data-target="#formModal">AddNewRecord</button>
 
     <script>
-        $("#newButton").click(function () {
+       $(".editButton").click(function () {
 
             $.ajax({
-                url: "@Url.Action("Create","Auctions")"
+                url: "@Url.Action("Edit","Auctions")",
+                type: "get",
+                data: {
+                    ID: $(this).attr("data-id")
+                }
             }).done(function (response) {
-                $("#formModal").modal("toggle")
+
                 $("#contentArea").html(response)
-            })
+                $("#formModal").modal("toggle")
+            });
         });
 
+         $(".deleteButton").click(function () {
+
+             var result = confirm("Are you sure you want to delte this record !");
+             if (result == true) {
+
+                 $.ajax({
+                     url: "/Auctions/Delete/",
+                     type: "POST",
+                     data: {
+                            ID: $(this).attr("data-id")
+                     }
+                 }).done(function (response) {
+
+                     $("#listingArea").html(response);
+                 });
+
+             }
+        });
     </script>
 
-</div>
 
