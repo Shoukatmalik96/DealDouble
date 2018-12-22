@@ -5,21 +5,38 @@
 }
 
 
-    <div id="listingArea">
-        @{Html.RenderAction("Listing");}
+<div id="listingArea">
+    @{Html.RenderAction("Listing");}
+</div>
+
+<!-- Modal Trigger Button -->
+<button id="createButton" class="btn btn-success" type="button">AddNewRecord</button>
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="contentArea">
+
+        </div>
     </div>
-
-    <!-- Modal Trigger Button -->
-    <button id="createButton" class="btn btn-success" type="button">AddNewRecord</button>
-    <!-- Modal -->
-    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="contentArea">
-
+</div>
+<!----Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Are you sure you want to delete this Record ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="mDeleteButton">Delete</button>
             </div>
         </div>
     </div>
-    <script>
+</div>
+<script>
 
         $("#createButton").click(function () {
 
@@ -31,5 +48,19 @@
 
             })
         });
-    </script>
+
+    $("#mDeleteButton").click(function () {
+
+        $.ajax({
+            url: "/Auctions/Delete/",
+            type: "Post",
+            data: {
+                ID: $(this).attr("data-recordID")
+            }
+        }).done(function (response) {
+            $("#listingArea").html(response)
+            $("#deleteModal").modal("toggle")
+        });
+    });
+</script>
 
