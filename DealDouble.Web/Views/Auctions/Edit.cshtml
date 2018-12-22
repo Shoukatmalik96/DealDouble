@@ -3,16 +3,15 @@
     ViewBag.Title = "Edit";
 }
 
-
-
-
+<!--Edit Modal-->
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Update Auction</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Edit Auction</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form id="editForm" action="/Auctions/Edit" method="post">
+
+<form id="editForm" action="/Auctions/Edit/" method="post">
     <div class="modal-body">
         <input type="hidden" name="ID" value="@Model.ID" />
 
@@ -43,8 +42,6 @@
         </div>
     </div>
 </form>
-
-
 <script>
     $("#saveButton").click(function () {
 
@@ -53,6 +50,7 @@
             type: "post",
             data: $("#editForm").serialize()
         }).done(function (response) {
+            $("#formModal").modal("toggle")
             $("#listingArea").html(response)
         });
     });
