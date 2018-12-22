@@ -5,43 +5,9 @@
 }
 
 <div id="listingArea">
-    <table class="table table-hover">
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>ActualAmount</th>
-            <th>StartingDate</th>
-            <th>EndingDate</th>
-            <th>Actions</th>
-        </tr>
-
-        @foreach (var auction in Model)
-        {
-            <tr>
-                <td>@auction.Title</td>
-                <td>@auction.Description</td>
-                <td>@auction.ActualAmount</td>
-                <td>@auction.StartingDate</td>
-                <td>@auction.EndingDate</td>
-                <td><Button class="editButton btn btn-primary" data-id="@auction.ID" type="button" data-toggle="modal" data-target="#formModal">Edit</Button></td>
-                <td><Button class="deleteButton btn btn-danger" data-id="@auction.ID" type="button">Delete</Button></td>
-            </tr>
-        }
-
-    </table>
-    <!-- Modal Trigger Button -->
-    <button id="newButton" class="btn btn-success" type="button" data-toggle="modal" data-target="#formModal">AddNewRecord</button>
+    @{Html.RenderAction("Listing");}
 
     <script>
-    $("#newButton").click(function () {
-
-        $.ajax({
-            url: "@Url.Action("Create","Auctions")"
-        }).done(function (response) {
-            $("#formModal").modal("toggle")
-            $("#contentArea").html(response)
-        })
-    });
 
         $(".editButton").click(function () {
 
@@ -52,7 +18,7 @@
                     ID: $(this).attr("data-id")
                 }
             }).done(function (response) {
-                
+
                 $("#contentArea").html(response)
             });
         });
@@ -76,6 +42,7 @@
              }
         });
     </script>
+
 </div>
 
 <!-- Modal -->

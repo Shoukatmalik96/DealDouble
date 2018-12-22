@@ -14,18 +14,21 @@ namespace DealDouble.Web.Controllers
         AuctionsService AuctionsService = new AuctionsService();
         public ActionResult Index()
         {
-            //AuctionsListingViewModel model = new AuctionsListingViewModel();
-            List<Auctions> model = new List<Auctions>();
-            model = AuctionsService.GetAllAuctions();
             if (Request.IsAjaxRequest())
             {
-                return PartialView(model);
+                return PartialView();
             }
             else
             {
-                return View(model);
+                return View();
             }
-            
+           
+        }
+        public ActionResult Listing()
+        {
+            List<Auctions> model = new List<Auctions>();
+            model = AuctionsService.GetAllAuctions();
+            return PartialView(model);
         }
         [HttpGet]
         public ActionResult Create()
