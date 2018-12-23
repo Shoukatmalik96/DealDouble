@@ -13,5 +13,7 @@ namespace DealDouble.Entities
         public decimal ActualAmount { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
+
+        public List<AuctionPicture> AuctionPictures { get; set; }
     }
 }

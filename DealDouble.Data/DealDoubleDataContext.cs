@@ -15,5 +15,7 @@ namespace DealDouble.Data
 
         }
         public DbSet<Auctions>Auctions { get; set; }
+        public DbSet<AuctionPicture> AuctionPictures { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
     }
 }

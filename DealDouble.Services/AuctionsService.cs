@@ -35,6 +35,13 @@ namespace DealDouble.Services
             context.Entry(auctions).State = System.Data.Entity.EntityState.Deleted;
             context.SaveChanges();
         }
+        
+        public int Savepicture(Picture picture)
+        {
+            context.Pictures.Add(picture);
+            context.SaveChanges();
+            return picture.ID;
+        }
 
     }
 }
