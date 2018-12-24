@@ -11,7 +11,7 @@ namespace DealDouble.Web.Controllers
 {
     public class SharedController : Controller
     {
-        AuctionsService AuctionService = new AuctionsService();
+        SharedService SharedService = new SharedService();
 
         public ActionResult Index()
         {
@@ -38,7 +38,7 @@ namespace DealDouble.Web.Controllers
 
                 var dbpictures = new Picture();
                 dbpictures.URL = path;
-                int pictureID = AuctionService.Savepicture(dbpictures);
+                int pictureID = SharedService.Savepicture(dbpictures);
                 pictureJSON.Add(new { PictureID = pictureID, pictureURL = "/Content/images/" + fileName });
             }
             result.Data = pictureJSON;

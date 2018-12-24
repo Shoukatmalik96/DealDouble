@@ -35,8 +35,8 @@
         <div class="form-group">
             <label>Select Pictures</label>
             <input class="form-control" id="auctionPictures" name="AuctionPictures" type="file" multiple>
-            <div id="picturesArea" class="img-fluid"></div>
-            <input type=" name="AuctionPictures" />
+            <div id="picturesArea"></div>
+            <input type="hidden" name="AuctionPictures" id="pictureIDs"/>
         </div>
 
         <div class="modal-footer">
@@ -58,37 +58,7 @@
             $("#formModal").modal("toggle")
         });
     });
-    // when we uploading file then the change function fires.
-    //$("#auctionPictures").change(function () {
-
-    //    debugger;
-    //    var pictures = this.files;
-    //    var picsData = new FormData();
-
-    //    for (var i = 0; i < pictures.length; i++) {
-    //        picsData.append("Pictures", pictures[i]);
-    //    }
-        
-    //    $.ajax({
-            
-    //        url: "/Shared/UploadPictures",
-    //        type: "POST",
-    //        data: picsData,
-    //        dateType: "json",
-    //        processData: false,
-    //        contentType: false
-
-    //    }).done(function (responses) {
-    //        debugger;
-    //        for (var i = 0; i < responses.length; i++) {
-
-    //            var picResponse = responses[i];
-
-    //            var imageHtml = "<img src =/Content/images/" + picResponse.pictureURL + "/>";
-    //            $("#pictureArea").append(imageHtml);
-    //        }
-    //    });
-    //});
+    
     $("#auctionPictures").change(function () {
 
 		var pictures = this.files;
@@ -109,11 +79,18 @@
 		})
         .done(function (responses) {
             debugger;
+
+            var picIDs = '';
 			for (var i = 0; i < responses.length; i++) {
                 var picResponse = responses[i];
-                var imageHtml = "<img src =" + picResponse.pictureURL + ">";
+                var imageHtml = "<img class='img-fluid' src =" + picResponse.pictureURL + ">";
                 $("#picturesArea").append(imageHtml);
-			}
+                picIDs = picIDs + "," + picResponse.ID;
+            }
+
+            // Set picIDs
+
+            $("#pictureIDs").val(picIDs);
 		});
 	});
 </script>

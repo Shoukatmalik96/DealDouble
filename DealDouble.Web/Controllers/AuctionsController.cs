@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static DealDouble.Web.Models.viewModels.AuctionsViewModels;
 
 namespace DealDouble.Web.Controllers
 {
@@ -36,9 +37,28 @@ namespace DealDouble.Web.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Create(Auctions auctions)
+        public ActionResult Create(CreateAuctionViewModel model)
         {
-            AuctionsService.SaveAuction(auctions);
+            Auctions auction = new Auctions();
+            auction.Title = model.Title;
+            auction.Description = model.Description;
+            auction.ActualAmount = model.ActualAmount;
+            auction.StartingDate = model.StartingDate;
+            auction.EndingDate = model.EndingDate;
+            auction.AuctionPictures = new List<AuctionPicture>();
+
+            if (!string.IsNullOrEmpty(model.AuctionPictures))
+            {
+                //LINQ
+                var pictureIDs = model.AuctionPictures.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                            .Select(ID => int.Parse(ID)).ToList();
+
+                auction.AuctionPictures = new List<AuctionPicture>();
+                auction.AuctionPictures.AddRange(pictureIDs.Select(x => new AuctionPicture() { PictureID = x }).ToList());
+            }
+
+            AuctionsService.SaveAuction(auction);
+            AuctionsService.SaveAuction(auction);
             return RedirectToAction("Listing");
         }
         [HttpGet]

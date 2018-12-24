@@ -11,6 +11,8 @@ namespace DealDouble.Services
     public class AuctionsService
     {
 
+        DealDoubleDataContext context = new DealDoubleDataContext();
+
         public Auctions GetAuctionsByID(int ID)
         {
             return context.Auctions.Find(ID);      
@@ -19,7 +21,7 @@ namespace DealDouble.Services
         {
             return context.Auctions.ToList();
         }
-        DealDoubleDataContext context = new DealDoubleDataContext();
+       
         public void SaveAuction(Auctions auctions)
         {
             context.Auctions.Add(auctions);
@@ -35,13 +37,5 @@ namespace DealDouble.Services
             context.Entry(auctions).State = System.Data.Entity.EntityState.Deleted;
             context.SaveChanges();
         }
-        
-        public int Savepicture(Picture picture)
-        {
-            context.Pictures.Add(picture);
-            context.SaveChanges();
-            return picture.ID;
-        }
-
     }
 }
